@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title={formTitle} icon-name="custom:custom14">
+        <div class="slds-var-p-around_small">
+            <lightning-combobox name="parentAccount" label="Parent Account" onchange={handleChange}
+                placeholder="Select Parent Account" options={options} required="true"
+                message-when-value-missing="Please select Parent Account" class="validateMe"
+                value={selectedParentAccount}></lightning-combobox>
+            <lightning-input label="Account Name" placeholder="Enter Account Name" onchange={handleChange}
+                name="accountName" type="text" required="true" message-when-value-missing="Enter Account Name"
+                min-length="2" max-length="80" message-when-too-short="Minimum length of Account name is 2."
+                message-when-too-long="Maximum length of Account name is 80." class="validateMe"
+                value={selectedAccountName}></lightning-input>
+            <lightning-input type="date" onchange={handleChange} label="SLA Expiration Date" name="slaExpDate"
+                value={selectedExpirationDate}></lightning-input>
+            <template lwc:if={slaPicklist.data}>
+                <lightning-radio-group name="slaType" label="SLA Type" options={slaPicklist.data.values} type="button"
+                    onchange={handleChange} value={selectedSlaType}></lightning-radio-group>
+            </template>
+            <lightning-slider name="noOfLoacation" label="Number of Locations" min="1" max="50" step="1"
+                value={selectedNoOfLocation} onchange={handleChange}></lightning-slider>
+            <lightning-input-rich-text name="description" label="Description" onchange={handleChange}
+                disabled-categories="FORMAT_FONT" value={selectedDescription}>
+            </lightning-input-rich-text>
+        </div>
+        <div class="slds-var-p-around_small">
+            <lightning-button label="Save" variant="brand" onclick={saveRecord}></lightning-button>
+            <template lwc:if={isDeleteAvailable}>
+                <lightning-button label="Delete Account" title="Delete" variant="destructive"
+                    onclick={deleteHandler}></lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>
